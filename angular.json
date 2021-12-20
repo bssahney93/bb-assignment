@@ -1,0 +1,245 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "wa3-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "inlineStyle": true,
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "apps/wa3-app",
+      "sourceRoot": "apps/wa3-app/src",
+      "prefix": "bb",
+      "architect": {
+        "build": {
+          "builder": "@bb-cli/bb-ang:browser",
+          "options": {
+            "outputPath": "dist/wa3-app",
+            "index": "apps/wa3-app/src/index.html",
+            "main": "apps/wa3-app/src/main.ts",
+            "polyfills": "apps/wa3-app/src/polyfills.ts",
+            "tsConfig": "apps/wa3-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              {
+                "input": "dist/custom-project-assets",
+                "glob": "**/*",
+                "output": "assets"
+              },
+              "apps/wa3-app/src/favicon.ico",
+              "apps/wa3-app/src/assets"
+            ],
+            "styles": [ "themes\\backbase-theme\\scss\\main.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/wa3-app/src/environments/environment.ts",
+                  "with": "apps/wa3-app/src/environments/environment.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "8mb",
+                  "maximumError": "10mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "shared": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/wa3-app/src/environments/environment.ts",
+                  "with": "apps/wa3-app/src/environments/environment.shared.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "wa3-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "wa3-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "wa3-app:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/wa3-app/src/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "apps/wa3-app/src/polyfills.ts",
+            "tsConfig": "apps/wa3-app/src/../../../tsconfig.spec.json",
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "test.ts",
+              "**/polyfills.ts"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/wa3-app/tsconfig.app.json",
+              "apps/wa3-app/src/../../../tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "wa3-app-e2e": {
+      "projectType": "application",
+      "root": "apps/wa3-app-e2e",
+      "prefix": "bb",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/wa3-app-e2e/protractor.conf.js",
+            "devServerTarget": "wa3-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "wa3-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/wa3-app-e2e/tsconfig.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "omni-payment-widget-extended": {
+      "projectType": "library",
+      "root": "libs/omni-payment-widget-extended",
+      "sourceRoot": "libs/omni-payment-widget-extended/src",
+      "prefix": "bb",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/omni-payment-widget-extended/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "apps/wa3-app/src/polyfills.ts",
+            "tsConfig": "./tsconfig.spec.json",
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "test.ts",
+              "**/polyfills.ts"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "files": [
+              "libs/omni-payment-widget-extended/**/*.ts"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "product-summary-list-widget-extended": {
+      "projectType": "library",
+      "root": "libs/product-summary-list-widget-extended",
+      "sourceRoot": "libs/product-summary-list-widget-extended/src",
+      "prefix": "bb",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/product-summary-list-widget-extended/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "apps/wa3-app/src/polyfills.ts",
+            "tsConfig": "./tsconfig.spec.json",
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "test.ts",
+              "**/polyfills.ts"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "files": [
+              "libs/product-summary-list-widget-extended/**/*.ts"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@bb-cli/schematics"
+  },
+  "defaultProject": "wa3-app"
+}

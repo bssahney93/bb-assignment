@@ -1,0 +1,41 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@backbase-prduct-wrapper-widget/*": [
+        "libs/*/public_api.ts"
+      ],
+      "@us-domestic-wire-widget/*": [
+        "libs/*/public_api.ts"
+      ],
+      "@omni-payment-widget-extended/*": [
+        "libs/*/public_api.ts"
+      ],
+      "@product-summary-list-widget-extended/*": [
+        "libs/*/public_api.ts"
+      ]
+    }
+  },
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictTemplates": true
+  }
+}
